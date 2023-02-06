@@ -11,7 +11,8 @@ console.log = function () {
 };
 //////////////////////////////////////////
 //////////////////////////////////////////
-
+const dialogflow = require("@google-cloud/dialogflow");
+const uuid = require("uuid");
 const fs = require("fs");
 const util = require("util");
 const path = require("path");
@@ -19,6 +20,37 @@ const { Readable } = require("stream");
 //////////////////////////////////////////
 ///////////////// VARIA //////////////////
 //////////////////////////////////////////
+
+async function msgReply(textMsg) {
+  projectId = process.env.PROJECT_ID;
+
+  const sessionId = uuid.v4();
+
+  // Create a new session
+  const sessionClient = new dialogflow.SessionsClient();
+  const sessionPath = await sessionClient.projectAgentSessionPath(
+    projectId,
+    sessionId
+  );
+
+  const request = {
+    session: sessionPath,
+    queryInput: {
+      text: {
+        text: textMsg,
+
+        languageCode: "en-US",
+      },
+    },
+  };
+
+  const responses = await sessionClient.detectIntent(request);
+
+  const result = responses[0].queryResult;
+  console.log(`Query: ${result.queryText}`);
+
+  return await result.fulfillmentText;
+}
 
 function necessary_dirs() {
   if (!fs.existsSync("./data/")) {
@@ -343,6 +375,10 @@ function process_commands_query(txt, mapKey, user) {
   if (txt && txt.length) {
     let val = guildMap.get(mapKey);
     val.text_Channel.send(user.username + ": " + txt);
+    msgReply(txt).then((res) => {
+      console.log(res);
+      val.text_channel.send(res);
+    });
   }
 }
 
