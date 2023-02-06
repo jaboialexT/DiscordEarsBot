@@ -16,12 +16,13 @@ const fs = require("fs");
 const util = require("util");
 const path = require("path");
 const { Readable } = require("stream");
-const chatbot = new Chatterbot({
+const ChatterBot = require("chatterbot");
+const chatbot = new ChatterBot({
   name: "DiscordBot",
   read_only: true,
   logic_adapters: ["chatterbot.logic.BestMatch"],
 });
-const trainer = new Chatterbot.trainers.ChatterBotCorpusTrainer(chatbot);
+const trainer = new ChatterBot.trainers.ChatterBotCorpusTrainer(chatbot);
 
 trainer.train("chatterbot.corpus.english");
 //////////////////////////////////////////
