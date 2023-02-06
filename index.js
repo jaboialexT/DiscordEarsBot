@@ -16,15 +16,6 @@ const fs = require("fs");
 const util = require("util");
 const path = require("path");
 const { Readable } = require("stream");
-const ChatterBot = require("chatterbot");
-const chatbot = new ChatterBot({
-  name: "DiscordBot",
-  read_only: true,
-  logic_adapters: ["chatterbot.logic.BestMatch"],
-});
-const trainer = new ChatterBot.trainers.ChatterBotCorpusTrainer(chatbot);
-
-trainer.train("chatterbot.corpus.english");
 //////////////////////////////////////////
 ///////////////// VARIA //////////////////
 //////////////////////////////////////////
@@ -351,9 +342,7 @@ function speak_impl(voice_Connection, mapKey) {
 function process_commands_query(txt, mapKey, user) {
   if (txt && txt.length) {
     let val = guildMap.get(mapKey);
-    val.text_Channel.send(
-      user.username + ": " + txt + "\n response: " + chatbot.getReply(txt)
-    );
+    val.text_Channel.send(user.username + ": " + txt);
   }
 }
 
