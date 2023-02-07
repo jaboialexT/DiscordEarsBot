@@ -22,14 +22,12 @@ const { Readable } = require("stream");
 //////////////////////////////////////////
 
 async function msgReply(textMsg) {
-  projectId = process.env.PROJECT_ID;
-
   const sessionId = uuid.v4();
 
   // Create a new session
   const sessionClient = new dialogflow.SessionsClient();
   const sessionPath = await sessionClient.projectAgentSessionPath(
-    projectId,
+    PROJECT_ID,
     sessionId
   );
 
@@ -89,6 +87,7 @@ const SETTINGS_FILE = "settings.json";
 
 let DISCORD_TOK = null;
 let WITAI_TOK = null;
+let PROJECT_ID = null;
 let SPEECH_METHOD = "vosk"; // witai, google, vosk
 
 function loadConfig() {
@@ -97,10 +96,12 @@ function loadConfig() {
     DISCORD_TOK = CFG_DATA.DISCORD_TOK;
     WITAI_TOK = CFG_DATA.WITAI_TOK;
     SPEECH_METHOD = CFG_DATA.SPEECH_METHOD;
+    PROJECT_ID = CFG_DATA.PROJECT_ID;
   }
   DISCORD_TOK = process.env.DISCORD_TOK || DISCORD_TOK;
   WITAI_TOK = process.env.WITAI_TOK || WITAI_TOK;
   SPEECH_METHOD = process.env.SPEECH_METHOD || SPEECH_METHOD;
+  PROJECT_ID = process.env.PROJECT_ID || PROJECT_ID;
 
   if (!["witai", "google", "vosk"].includes(SPEECH_METHOD))
     throw "invalid or missing SPEECH_METHOD";
