@@ -24,6 +24,7 @@
     "@discordjs/opus": "^0.4.0",
     "@google-cloud/dialogflow": "^5.5.0",
     "@google-cloud/speech": "^4.2.0",
+    "@google-cloud/storage": "^6.9.2",
     "@mapbox/node-pre-gyp": "^1.0.1",
     "chatterbot": "^1.0.0",
     "dialogflow": "^1.2.0",
