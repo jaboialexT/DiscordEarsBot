@@ -11,6 +11,11 @@ console.log = function () {
 };
 //////////////////////////////////////////
 //////////////////////////////////////////
+const elevenLabsAPI = require("elevenlabs-api");
+var apiKey = "dfbcbe5c3655af04744596d11a60f208";
+var voice_id = "KvRsh2ROpk7BAn4ubnPz";
+var filename = "audio.mp3";
+
 const dialogflow = require("@google-cloud/dialogflow");
 const uuid = require("uuid");
 const fs = require("fs");
@@ -21,8 +26,17 @@ const { Readable } = require("stream");
 ///////////////// VARIA //////////////////
 //////////////////////////////////////////
 
+async function tts(apiKey, text, voice_id, filename) {
+  try {
+    textToSpeech(apiKey, text, voice_id, filename);
+    console.log(`Success,Audio saved as: ${filename}`);
+  } catch (e) {
+    console.log(e);
+  }
+}
+
 async function msgReply(textMsg) {
-  projectId = process.env.PROJECT_ID;
+  projectId = "jaboialex-nqgq";
 
   const sessionId = uuid.v4();
 
@@ -87,8 +101,9 @@ async function convert_audio(input) {
 
 const SETTINGS_FILE = "settings.json";
 
-let DISCORD_TOK = null;
-let WITAI_TOK = null;
+let DISCORD_TOK =
+  "MTA3MjIwMjUwOTYzMzk5MDY5OA.GIUi2b.76Um_xF3AQ0fNAvE7sj6je14WoMzzVPLJ7nqoQ";
+let WITAI_TOK = "UWXK7CZJ4EYOLRF73M5V5GV4WMFGKBUP";
 let SPEECH_METHOD = "vosk"; // witai, google, vosk
 
 function loadConfig() {
