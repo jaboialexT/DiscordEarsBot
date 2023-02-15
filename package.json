@@ -29,6 +29,7 @@
     "chatterbot": "^1.0.0",
     "dialogflow": "^1.2.0",
     "discord.js": "^12.5.1",
+    "elevenlabs-api": "^1.0.6",
     "node-witai-speech": "^1.0.2",
     "request": "^2.88.2",
     "underscore": "^1.12.0",

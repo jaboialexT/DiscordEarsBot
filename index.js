@@ -24,7 +24,6 @@ const { Readable } = require("stream");
 
 async function msgReply(textMsg) {
   const sessionId = uuid.v4();
-  const PROJECT_ID = "jaboialex-nqgq";
 
   // Create a new session
   const sessionClient = new dialogflow.SessionsClient();
